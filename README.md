@@ -36,3 +36,9 @@ In your local configuration, specify something like
             S3Bucket:
               ContentReader: S3ContentReader
               ContentWriter: S3ContentWriter
+
+If you want to use your own filenames (and therefore folders) for assets stored on the S3 Buckets, add the following to your local config
+    
+    S3ContentWriter:
+      use_existing_filenames: true
+If you are using your own filenames, just make sure you rewrite them as unique filenames, e.g. append the current timestamp to the name when uploading them. This is to ensure there are no issues with overwriting.

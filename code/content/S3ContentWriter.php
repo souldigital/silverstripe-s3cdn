@@ -14,10 +14,14 @@ class S3ContentWriter extends ContentWriter {
 	 * @var S3Client
 	 */
 	public $s3Service;
-	
-	public function nameToId($name) {
-		return md5($name . time()) . '/' . basename($name);
-	}
+
+    public function nameToId($name) {
+        if(Config::inst()->get("S3ContentWriter", "use_existing_filenames")) {
+            return $name;
+        }else{
+            return md5($name . time()) . '/' . basename($name);
+        }
+    }
 	
 	/**
 	 * Write content to storage
