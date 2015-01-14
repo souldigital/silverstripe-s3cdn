@@ -11,7 +11,7 @@ class S3ContentReader extends ContentReader {
 	public $bucket = 'bucket';
 
 	/**
-	 * @var S3Client
+	 * @var S3Service
 	 */
 	public $s3Service;
 	
@@ -137,7 +137,12 @@ class S3ContentReader extends ContentReader {
 	 * @return string
 	 */
 	public function getURL() {
-		return $this->getBaseUrl() . '/' . $this->getId();
+		if(Director::is_https()){
+			$region = ($this->s3Service->region=="")?"s3":"s3-".$this->s3Service->region;
+			return "https://".$region.".amazonaws.com/".$this->bucket."/".$this->getId();
+		}else{
+			return $this->getBaseUrl() . '/' . $this->getId();
+		}
 	}
 	
 	/**

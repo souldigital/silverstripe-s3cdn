@@ -10,9 +10,13 @@ use Aws\S3\Exception\S3Exception;
 class S3Service {
 
 	protected $s3;
-	
+
+	public $region;
+
 	public function __construct($key, $secret, $region = 'us-east-1') {
-		
+
+		$this->region = $region;
+
 		// Instantiate an S3 client
 		$this->s3 = Aws::factory(array(
 			'key'    => $key,
